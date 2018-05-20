@@ -1,9 +1,16 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express')
+const router = express.Router()
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
+const db = require('../queries')
 
-module.exports = router;
+router.get('/', (req, res, next) => {
+  res.render('index', { title: 'Puppies API' })
+})
+
+router.get('/puppies', db.getAllPuppies)
+router.get('/puppies/:id', db.getSinglePuppy)
+router.post('/puppies', db.createPuppy)
+// router.put('/puppies/:id', db.updatePuppy)
+// router.delete('/puppies/:id', db.removePuppy)
+
+module.exports = router
